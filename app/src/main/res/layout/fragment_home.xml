@@ -157,6 +157,15 @@
             android:textSize="16sp"
             android:paddingTop="16dp" />
 
+
+        <TextView
+            android:id="@+id/textNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Poznámka:"
+            android:layout_marginTop="8dp" />
+
+
         <Button
             android:id="@+id/buttonAddNote"
             android:layout_width="wrap_content"

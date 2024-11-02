@@ -44,11 +44,22 @@ class homeFragment : Fragment() {
         return binding.root
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Aktualizace času na obrazovce
         updateCurrentTime()
+
+        // Nastavení posluchače pro tlačítko Přidat poznámku
+        binding.buttonAddNote.setOnClickListener {
+            val dialog = AddRecordDialogFragment { note ->
+                displayNote(note)
+            }
+            dialog.show(parentFragmentManager, "AddRecordDialogFragment")
+        }
+
 
         // Nastavení listenerů pro časová pole
         binding.editTextWakeUpTime.setOnClickListener {
@@ -134,6 +145,13 @@ class homeFragment : Fragment() {
                 binding.textLocation.text = "Chyba při získávání polohy"
             }
     }
+
+
+    // Metoda pro zobrazení poznámky pod geolokací
+    private fun displayNote(note: String) {
+        binding.textNote.text = "Poznámka: $note"
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -1,31 +1,168 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
-    <!-- Button - zarovnán do středu a výše než TextView -->
-    <Button
-        android:id="@+id/button_add_record"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_note"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/text_home" />
-
-    <!-- TextView - zarovnaný pod tlačítkem -->
-    <TextView
-        android:id="@+id/text_home"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/button_add_record"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:orientation="vertical"
+        android:padding="8dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Zobrazení aktuálního času -->
+        <TextView
+            android:id="@+id/textCurrentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ZADEJ ÚDAJE"
+            android:textSize="18sp"
+            android:paddingBottom="8dp" />
+
+        <!-- Cvičení Sekce -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cvičení"
+            android:textSize="16sp"
+            android:paddingTop="8dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupExercise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioYesExercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ano" />
+
+            <RadioButton
+                android:id="@+id/radioNoExercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ne" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/buttonExerciseDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Přidat podrobnosti"
+            android:visibility="gone"
+            android:paddingTop="8dp" />
+
+        <!-- Vstávání a Spaní Sekce s časovými vstupy -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vstávání a Spaní"
+            android:textSize="16sp"
+            android:paddingTop="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextWakeUpTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Čas vstávání"
+                android:focusable="false"
+                android:clickable="true"
+                android:inputType="time" />
+
+            <EditText
+                android:id="@+id/editTextSleepTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Čas spaní"
+                android:focusable="false"
+                android:clickable="true"
+                android:inputType="time" />
+        </LinearLayout>
+
+        <!-- Dodržení jídelníčku Sekce -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dodržení jídelníčku"
+            android:textSize="16sp"
+            android:paddingTop="16dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupDiet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioYesDiet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ano" />
+
+            <RadioButton
+                android:id="@+id/radioNoDiet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ne" />
+        </RadioGroup>
+
+        <!-- Alkohol Sekce -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alkohol"
+            android:textSize="16sp"
+            android:paddingTop="16dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupAlcohol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioYesAlcohol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ano" />
+
+            <RadioButton
+                android:id="@+id/radioNoAlcohol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ne" />
+        </RadioGroup>
+
+        <!-- Geolokace Sekce -->
+        <TextView
+            android:id="@+id/textLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Poloha"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Poznámka Sekce -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Poznámka"
+            android:textSize="16sp"
+            android:paddingTop="16dp" />
+
+        <Button
+            android:id="@+id/buttonAddNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Přidat poznámku"
+            android:paddingTop="8dp" />
+
+    </LinearLayout>
+</ScrollView>

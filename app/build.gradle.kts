@@ -59,10 +59,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
     implementation(libs.androidx.room.runtime)
-
     implementation(libs.androidx.room.ktx)
+    implementation(libs.play.services.location)
 
 
 

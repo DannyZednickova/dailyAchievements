@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -25,11 +24,9 @@ class homeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    // Konstanty
     private val LOCATION_PERMISSION_REQUEST_CODE = 1001
-
-    // Získání poskytovatele polohy
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var note: String? = null // Poznámka, kterou chceme uchovat
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,31 +34,22 @@ class homeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        // Inicializace poskytovatele polohy
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-
         return binding.root
     }
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Aktualizace času na obrazovce
         updateCurrentTime()
-
-        // Nastavení posluchače pro tlačítko Přidat poznámku
         binding.buttonAddNote.setOnClickListener {
-            val dialog = AddRecordDialogFragment { note ->
-                displayNote(note)
+            val dialog = AddRecordDialogFragment { noteText ->
+                note = noteText // Uložíme poznámku do proměnné
+                displayNote(noteText)
             }
             dialog.show(parentFragmentManager, "AddRecordDialogFragment")
         }
 
-
-        // Nastavení listenerů pro časová pole
         binding.editTextWakeUpTime.setOnClickListener {
             showTimePicker { selectedTime ->
                 binding.editTextWakeUpTime.setText(selectedTime)
@@ -74,18 +62,15 @@ class homeFragment : Fragment() {
             }
         }
 
-        // Automatické získání polohy při načtení fragmentu
         getLastKnownLocation()
     }
 
-    // Funkce pro aktualizaci aktuálního času
     private fun updateCurrentTime() {
         val currentTime = Calendar.getInstance().time
         val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
         binding.textCurrentTime.text = "Aktuální čas: ${timeFormat.format(currentTime)}"
     }
 
-    // Funkce pro zobrazení TimePicker a formátování času
     private fun showTimePicker(onTimeSelected: (String) -> Unit) {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -102,7 +87,6 @@ class homeFragment : Fragment() {
         timePickerDialog.show()
     }
 
-    // Funkce pro získání poslední známé polohy
     private fun getLastKnownLocation() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -123,12 +107,10 @@ class homeFragment : Fragment() {
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location: Location? ->
                 location?.let {
-                    // Použití Geocoderu pro převod souřadnic na adresu
                     val geocoder = Geocoder(requireContext(), Locale.getDefault())
                     val addresses = geocoder.getFromLocation(it.latitude, it.longitude, 1)
                     if (addresses != null) {
                         if (addresses.isNotEmpty()) {
-
                             val city = addresses[0]?.locality ?: "Neznámé město"
                             val country = addresses[0]?.countryName ?: "Neznámá země"
                             val locationText = "Místo: $city, $country"
@@ -146,12 +128,24 @@ class homeFragment : Fragment() {
             }
     }
 
-
-    // Metoda pro zobrazení poznámky pod geolokací
     private fun displayNote(note: String) {
         binding.textNote.text = "Poznámka: $note"
     }
 
+    // Uložení stavu poznámky při změně konfigurace
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("note", note)
+    }
+
+    // Obnovení poznámky po změně konfigurace
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        note = savedInstanceState?.getString("note")
+        note?.let {
+            displayNote(it)
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

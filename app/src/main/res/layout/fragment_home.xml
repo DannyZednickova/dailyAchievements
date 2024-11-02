@@ -1,7 +1,9 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:fillViewport="true"
+    android:paddingBottom="32dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="ZADEJ ÚDAJE"
             android:textSize="18sp"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="12dp" />
 
         <!-- Cvičení Sekce -->
         <TextView
@@ -24,13 +26,14 @@
             android:layout_height="wrap_content"
             android:text="Cvičení"
             android:textSize="16sp"
-            android:paddingTop="8dp" />
+            android:paddingTop="12dp" />
 
         <RadioGroup
             android:id="@+id/radioGroupExercise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
 
             <RadioButton
                 android:id="@+id/radioYesExercise"
@@ -64,7 +67,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
 
             <EditText
                 android:id="@+id/editTextWakeUpTime"
@@ -99,7 +103,8 @@
             android:id="@+id/radioGroupDiet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
 
             <RadioButton
                 android:id="@+id/radioYesDiet"
@@ -126,7 +131,8 @@
             android:id="@+id/radioGroupAlcohol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
 
             <RadioButton
                 android:id="@+id/radioYesAlcohol"
@@ -157,7 +163,6 @@
             android:textSize="16sp"
             android:paddingTop="16dp" />
 
-
         <TextView
             android:id="@+id/textNote"
             android:layout_width="wrap_content"
@@ -165,13 +170,14 @@
             android:text="Poznámka:"
             android:layout_marginTop="8dp" />
 
-
         <Button
             android:id="@+id/buttonAddNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Přidat poznámku"
-            android:paddingTop="8dp" />
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="16dp"
+            android:paddingBottom="28dp" />
 
     </LinearLayout>
 </ScrollView>
